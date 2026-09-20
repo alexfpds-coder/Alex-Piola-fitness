@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Site fitness</title>
     <style>
-        body {
-            background-color: #8B0000; /* Um tom de vermelho escuro */
+        body 
+        <audio contrl> <source src="musica.mp3" type="audio/mpeg"> Seu navegador não suporta áudio. </audio>
+        {background-color: #8B0000; /* Um tom de vermelho escuro */
             background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png'); /* Uma textura rústica */
             background-repeat: repeat;
             color: #F5DEB3; /* Cor de texto em tom de bege para contraste */
             font-family: 'Georgia', serif; /* Fonte que evoca um estilo rústico */
             margin: 0;
-            padding: 20px;
+            padding: 20px;s
             text-align: center;
         }
         h1 {
@@ -55,15 +56,32 @@
         nav li a:hover {
             background-color: #111;
         }
+
+        #music-toggle {
+            background-color: #555;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        #music-toggle:hover {
+            background-color: #777;
+        }
     </style>
 </head>
 <body>
-    <!-- Adicione o link para sua música aqui. Substitua 'your_music_file.mp3' pelo caminho real do arquivo de áudio. -->
-    <audio autoplay loop>
-        <source src="your_music_file.mp3" type="audio/mpeg">
+    <audio id="background-music" loop preload="auto">
+        <source src="musica.mp3" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
+    <button id="music-toggle">Reproduzir Música</button>
+
+$0
     <h1>Bem-vindo ao Meu Site fitness!</h1>
     <h2>Dicas de treino e alimentação saúdavel e estilo de vida fiteness</h2>
     <p>A dor de hoje é a força de amanhã. A disciplina vence a motivação, e cada gota de suor te deixa mais perto da sua meta.</p>
@@ -81,6 +99,52 @@
         <li><a href="https://wa.me/message/X5A6JG2ILZODN1">WhatsApp Alex Piola Fitness</a></li>
       </ul>
     </nav>
+
+    <script>
+        const audio = document.getElementById('background-music');
+        const musicToggleButton = document.getElementById('music-toggle');
+        let isPlaying = false;
+
+        audio.volume = 0.3;
+
+        musicToggleButton.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                musicToggleButton.textContent = 'Reproduzir Música';
+            } else {
+                audio.play()
+                    .then(() => {
+                        musicToggleButton.textContent = 'Pausar Música';
+                    })
+                    .catch(error => {
+                        console.log('Autoplay was prevented. User interaction required.', error);
+                        musicToggleButton.textContent = 'Reproduzir Música (erro)';
+                        musicToggleButton.disabled = true;
+                    });
+            }
+            isPlaying = !isPlaying;
+        });
+
+        audio.onpause = () => {
+            if (isPlaying) {
+                musicToggleButton.textContent = 'Reproduzir Música';
+                isPlaying = false;
+            }
+        };
+
+        audio.onplay = () => {
+            if (!isPlaying) {
+                musicToggleButton.textContent = 'Pausar Música';
+                isPlaying = true;
+            }
+        };
+
+        audio.onerror = (e) => {
+            console.error('Audio loading error:', e);
+            musicToggleButton.textContent = 'Erro ao carregar música';
+            musicToggleButton.disabled = true;
+        };
+    </script>
 </body>
 </html>
 ```
